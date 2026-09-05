@@ -102,7 +102,7 @@ function Holimsg()
 }
 function animate() 
 {
-    ctx.fillStyle = 'rgba(17, 17, 17, 0.1)';
+    ctx.fillStyle = 'rgba(55, 111, 108, 0.76)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     Holimsg();
     handleParticles();
