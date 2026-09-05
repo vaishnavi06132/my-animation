@@ -17,7 +17,7 @@ window.addEventListener('mousemove', function(event)
 {
     mouse.x = event.x;
     mouse.y = event.y;
-    for(let i=0;i<35;i++) 
+    for(let i=0;i<10;i++) 
     {
         pA.push(new Particle());
     }
@@ -37,7 +37,7 @@ class Particle
     {
         this.x = mouse.x;
         this.y = mouse.y;
-        this.size = Math.random()*20+5; 
+        this.size = Math.random()*7+5; 
         this.speedX = Math.random()*3-1.5; 
         this.speedY = Math.random()*3-1.5; 
         this.color = 'hsl(' + hue + ', 100%, 50%)'; 
@@ -54,14 +54,12 @@ class Particle
     draw()
     {
         ctx.save();
-        ctx.shadowColor = 'rgba(118, 33, 91, 0.86)';
-        ctx.shadowBlur = 4;
+        ctx.shadowColor = 'rgba(13, 7, 11, 0.86)';
+        ctx.shadowBlur = 6;
         ctx.shadowOffsetX = 3;
         ctx.shadowOffsetY = 3;
         ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-        ctx.fill();
+        ctx.fillRect(this.x, this.y, this.size, this.size);
         ctx.restore();
         if(txtOp>0) 
         {
@@ -75,6 +73,20 @@ function handleParticles()
     {
         pA[i].update();
         pA[i].draw();
+        for(let j=i;j<pA.length;j++)
+        {
+            const dx= pA[i].x - pA[j].x;
+            const dy= pA[i].y - pA[j].y;
+            const dist= Math.sqrt(dx*dx + dy*dy);
+            if(dist<100)
+            {
+                ctx.beginPath();
+                ctx.strokeStyle= pA[i].color;
+                ctx.moveTo(pA[i].x, pA[i].y);
+                ctx.lineTo(pA[j].x , pA[j].y);
+                ctx.stroke();
+            }
+        }
         if (pA[i].size <= 0.2) 
         {
             pA.splice(i, 1);
@@ -102,7 +114,7 @@ function Holimsg()
 }
 function animate() 
 {
-    ctx.fillStyle = 'rgba(55, 111, 108, 0.76)';
+    ctx.fillStyle = 'rgba(20, 9, 38, 0.65)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     Holimsg();
     handleParticles();
