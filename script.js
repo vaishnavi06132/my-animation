@@ -5,6 +5,15 @@ canvas.height = window.innerHeight;
 const pA = [];
 let hue = 0; 
 let txtOp = 1; 
+const bgTexts= [];
+for (let i = 0; i < 15; i++) 
+{
+    bgTexts.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speed: Math.random() * 1 + 0.5
+    });
+}
 const mouse={
     x: undefined,
     y: undefined
@@ -112,10 +121,33 @@ function Holimsg()
     ctx.fillText('Click or move your cursor to enjoy the colors', canvas.width/2, canvas.height/2+30);
     ctx.restore();
 }
+function bgtext()
+{
+    ctx.save();
+    ctx.globalAlpha = 0.08;
+    ctx.font = 'bold 40px Arial';
+    ctx.fillStyle = '#ff69b4';
+    ctx.textAlign = 'center';
+    for (let i = 0; i < bgTexts.length; i++) 
+    {
+        bgTexts[i].y += bgTexts[i].speed;
+        ctx.fillText(
+            'HAPPY HOLI',
+            bgTexts[i].x,
+            bgTexts[i].y
+        );
+        if (bgTexts[i].y > canvas.height + 50) 
+        {
+            bgTexts[i].y = -50;
+        }
+    }
+    ctx.restore();;
+}
 function animate() 
 {
     ctx.fillStyle = 'rgba(20, 9, 38, 0.65)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    bgtext();
     Holimsg();
     handleParticles();
     hue += 5;
