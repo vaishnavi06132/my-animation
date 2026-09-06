@@ -161,7 +161,9 @@ function clk()
     ctx.globalAlpha = 1;
     ctx.textAlign = 'center';
     ctx.font = 'bold 80px Arial';
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
+    ctx.shadowColor = ctx.fillStyle;
+    ctx.shadowBlur = 20;
     ctx.fillText(time, canvas.width / 2, canvas.height / 2);
     ctx.restore();
 }
