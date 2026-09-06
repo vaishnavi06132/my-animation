@@ -38,6 +38,16 @@ window.addEventListener('mousemove', function(event)
         pA.push(new Particle());
     }
 });
+window.addEventListener('touchmove', function (event) 
+{
+    mouse.x = event.touches[0].clientX;
+    mouse.y = event.touches[0].clientY;
+
+    for (let i = 0; i < 10; i++) 
+    {
+        pA.push(new Particle());
+    }
+});
 window.addEventListener('click', function(event)
 {
     mouse.x = event.x;
