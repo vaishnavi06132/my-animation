@@ -167,6 +167,30 @@ function clk()
     ctx.fillText(time, canvas.width / 2, canvas.height / 2);
     ctx.restore();
 }
+function clkring() 
+{
+    const now= new Date();
+    const seconds= now.getSeconds();
+    const centerX= canvas.width / 2;
+    const centerY= canvas.height / 2;
+    const radius= 200;
+    const startAngle= -Math.PI / 2;
+    const endAngle= startAngle + (seconds / 60) * Math.PI * 2;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.strokeStyle= 'rgba(255, 255, 255, 0.15)';
+    ctx.lineWidth= 5;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.strokeStyle= 'hsl(' + hue + ', 100%, 50%)';
+    ctx.lineWidth= 5;
+    ctx.shadowColor= ctx.strokeStyle;
+    ctx.shadowBlur= 15;
+    ctx.stroke();
+    ctx.restore();
+}
 function animate() 
 {
     ctx.fillStyle = 'rgba(20, 9, 38, 0.65)';
@@ -175,6 +199,7 @@ function animate()
     if(showclk)
     {
         clk();
+        clkring();
     }
     else
     {
