@@ -150,13 +150,20 @@ function bgtext()
     }
     ctx.restore();;
 }
-function clk() 
+function clk()
 {
     const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    const time = hours + ':' + minutes + ':' + seconds;
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+    const diff = midnight-now;
+    const ts = Math.floor(diff / 1000);
+    const h = Math.floor(ts / 3600);
+    const mins = Math.floor((ts % 3600) / 60);
+    const sec = ts % 60;
+    const time =
+        String(h).padStart(2, '0') + ':' +
+        String(mins).padStart(2, '0') + ':' +
+        String(sec).padStart(2, '0');
     ctx.save();
     ctx.globalAlpha = 1;
     ctx.textAlign = 'center';
@@ -173,7 +180,7 @@ function clkring()
     const seconds= now.getSeconds();
     const centerX= canvas.width / 2;
     const centerY= canvas.height / 2;
-    const radius= 200;
+    const radius= 180;
     const startAngle= -Math.PI / 2;
     const endAngle= startAngle + (seconds / 60) * Math.PI * 2;
     ctx.save();
