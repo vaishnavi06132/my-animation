@@ -5,6 +5,13 @@ canvas.height = window.innerHeight;
 const pA = [];
 let hue = 0; 
 let txtOp = 1; 
+const clkBtn = document.getElementById('clockButton');
+let showclk= false;
+clkBtn.addEventListener('click', function() 
+{
+    showclk = true;
+    clkBtn.style.display= 'none';
+});
 const bgTexts= [];
 for (let i = 0; i < 15; i++) 
 {
@@ -143,13 +150,37 @@ function bgtext()
     }
     ctx.restore();;
 }
+function clk() 
+{
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const time = hours + ':' + minutes + ':' + seconds;
+    ctx.save();
+    ctx.globalAlpha = 1;
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 80px Arial';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(time, canvas.width / 2, canvas.height / 2);
+    ctx.restore();
+}
 function animate() 
 {
     ctx.fillStyle = 'rgba(20, 9, 38, 0.65)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     bgtext();
-    Holimsg();
-    handleParticles();
+    if(showclk)
+    {
+        clk();
+    }
+    else
+    {
+        
+        Holimsg();
+        handleParticles();
+
+    }
     hue += 5;
     requestAnimationFrame(animate);
 }
